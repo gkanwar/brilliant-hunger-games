@@ -135,7 +135,7 @@ if __name__ == "__main__":
             if p.food > 0:
                 next_players.append(p)
             else:
-                print "Round %s: Player %s died!" % (roundNumber, p.name)
+                print "Round %s: Player %s died! REPUTATION[%s]" % (roundNumber, p.name, p.reputation())
         players = next_players
 
         roundNumber += 1
