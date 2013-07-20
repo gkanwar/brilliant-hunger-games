@@ -6,8 +6,9 @@ def hunt_choices(round_number, current_food, current_reputation, m,
 
     reps = list(player_reputations)
     reps.sort()
-    rep_to_trust = reps[players_to_trust]
-    
+    reps.reverse()
+    rep_to_trust = reps[int(players_to_trust)]
+
     hunt_decisions = list()
     for reputation in player_reputations:
         if reputation >= rep_to_trust:

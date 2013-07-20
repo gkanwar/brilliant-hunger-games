@@ -3,7 +3,7 @@ def hunt_choices(round_number, current_food, current_reputation, m,
 
     avg_reputation = float(sum(player_reputations))/len(player_reputations)
 
-    reps = list(avg_reputation)
+    reps = list(player_reputations)
     reps.sort()
     sucker = reps[int(0.9 * len(player_reputations))]
     
@@ -11,7 +11,7 @@ def hunt_choices(round_number, current_food, current_reputation, m,
     for reputation in player_reputations:
         if reputation >= sucker:
             hunt_decisions.append('s')
-        if reputation >= rep_to_trust:
+        if reputation >= avg_reputation:
             hunt_decisions.append('h')
         else:
             hunt_decisions.append('s')

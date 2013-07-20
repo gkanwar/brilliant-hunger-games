@@ -7,6 +7,23 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from bots import always_hunt
 from bots import never_hunt
+from bots import alternate_choices
+from bots import average_trust
+from bots import half_trust
+from bots import backstabber
+from bots import maintain_average_rep
+
+INITIAL_PLAYERS = [(3, always_hunt, "ALWAYS_HUNT"),
+                   (3, alternate_choices, "ALTERNATE_CHOICES"),
+                   (3, average_trust, "AVERAGE_TRUST"),
+                   (3, half_trust, "HALF_TRUST"),
+                   (3, backstabber, "BACKSTABBER"),
+                   (3, maintain_average_rep, "MAINTAIN_AVERAGE_REP"),
+                   (3, never_hunt, "NEVER_HUNT")]
+MAX_ROUNDS = 100000
+
+roundNumber = 1
+players = []
 
 
 class Player(object):
@@ -28,13 +45,6 @@ class Player(object):
             return float(self.h) / float(self.h+self.s)
 
 
-INITIAL_PLAYERS = [(5, always_hunt, "ALWAYS_HUNT"),
-                   (0, never_hunt, "NEVER_HUNT")]
-MAX_ROUNDS = 100000
-
-roundNumber = 1
-players = []
-
 def initGame():
     totalPlayers = sum(map(lambda tup: tup[0], INITIAL_PLAYERS))
     for num, module, name in INITIAL_PLAYERS:
@@ -48,6 +58,11 @@ def initGame():
     assert totalPlayers == len(players)
 
 
+def reportPlayers():
+    for p in players:
+        print "Player: %s -- FOOD[%s] REPUTATION[%s]" % (p.name, p.food, p.reputation())
+
+
 if __name__ == "__main__":
     initGame()
 
@@ -55,6 +70,7 @@ if __name__ == "__main__":
     while players and len(players)>1 and roundNumber != MAX_ROUNDS:
         if roundNumber % 1000 == 0:
             print "Round " + str(roundNumber)
+            reportPlayers()
 
         choices = []
 
@@ -118,11 +134,12 @@ if __name__ == "__main__":
             p.round_end(awards[i], m, totalHunts)
             if p.food > 0:
                 next_players.append(p)
+            else:
+                print "Round %s: Player %s died!" % (roundNumber, p.name)
         players = next_players
 
         roundNumber += 1
 
     print "Game over after %s rounds!" % (roundNumber)
     print "Players left alive:"
-    for p in players:
-        print "Player: %s -- FOOD[%s] REPUTATION[%s]" % (p.name, p.food, p.reputation())
+    reportPlayers()
