@@ -11,15 +11,17 @@ from bots import alternate_choices
 from bots import average_trust
 from bots import half_trust
 from bots import backstabber
+from bots import better_backstabber
 from bots import maintain_average_rep
 
-INITIAL_PLAYERS = [(3, always_hunt, "ALWAYS_HUNT"),
-                   (3, alternate_choices, "ALTERNATE_CHOICES"),
-                   (3, average_trust, "AVERAGE_TRUST"),
-                   (3, half_trust, "HALF_TRUST"),
-                   (3, backstabber, "BACKSTABBER"),
-                   (3, maintain_average_rep, "MAINTAIN_AVERAGE_REP"),
-                   (3, never_hunt, "NEVER_HUNT")]
+INITIAL_PLAYERS = [(0, always_hunt, "ALWAYS_HUNT"),
+                   (5, alternate_choices, "ALTERNATE_CHOICES"),
+                   (5, average_trust, "AVERAGE_TRUST"),
+                   (5, half_trust, "HALF_TRUST"),
+                   (5, backstabber, "BACKSTABBER"),
+                   (5, better_backstabber, "BETTER_BACKSTABBER"),
+                   (1, maintain_average_rep, "MAINTAIN_AVERAGE_REP"),
+                   (5, never_hunt, "NEVER_HUNT")]
 MAX_ROUNDS = 100000
 
 roundNumber = 1
