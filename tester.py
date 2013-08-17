@@ -13,20 +13,17 @@
 
 
 import sys
-import importlib
 
-def run_tests(script_name):
-    try:
-        user_module = importlib.import_module(script_name[:-3])
-        if hasattr(user_module, 'Player'):
-            try:
-                user_module = user_module.Player()
-            except:
-                print("\nPlayer did not instantiate, make sure it is a class. "
-                      "Proceeding assuming non OO code.\n")
-    except:
-        print ("\nCould not import %s\n" % script_name)
-        raise
+import bots.better_backstabber
+
+def run_tests():
+    user_module = bots.better_backstabber
+    if hasattr(user_module, 'Player'):
+        try:
+            user_module = user_module.Player()
+        except:
+            print("\nPlayer did not instantiate, make sure it is a class. "
+                  "Proceeding assuming non OO code.\n")
     test_hunt_choices(user_module)
     test_hunt_outcomes(user_module)
     test_round_end(user_module)
@@ -83,12 +80,4 @@ def test_round_end(user_module):
     print("\nround_end ran successfully!\n")
 
 if __name__ == "__main__":
-    try:
-        filename = sys.argv[1]
-    except IndexError:
-        print ("\nYou must include the filename that contains your code "
-               "as the only argument to this script.\n\n"
-               "Example: python tester.py filename_of_your_script.py\n")
-        raise
-    else:
-        run_tests(filename)
+    run_tests()
